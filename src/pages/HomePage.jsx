@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
+
 //import components
 import {
   Box,
@@ -18,6 +19,7 @@ import { Textarea } from "@chakra-ui/react";
 const HomePage = () => {
   const [newEntry, setNewEntry] = useState("");
   const [file, setFile] = useState();
+  const inputRef = useRef();
 
   return (
     <Box h="100vh">
@@ -66,13 +68,16 @@ const HomePage = () => {
                   p={2} // Add padding to the container
                   cursor="pointer" // Change cursor on hover
                 >
-                  <span>Choose File:</span>
+                  <span>Choose File: {file && file.name}</span>
                   <Input
                     type="file"
                     id="fileInput"
+                    ref={inputRef}
                     accept=".mp3"
                     display="none" // Hide the default file input
-                    onChange={(e) => handleFileUpload(e)}
+                    onChange={() => {
+                      setFile(inputRef.current.files[0]);
+                    }}
                   />
                 </Flex>
               </label>
