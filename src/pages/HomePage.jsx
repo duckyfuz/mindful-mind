@@ -86,6 +86,9 @@ const HomePage = () => {
     (async () => {
       setLoadingGPT(true);
 
+      const ent = newEntry;
+      console.log(ent);
+
       try {
         const firebaseDatabaseUrl =
           "https://feedback-psa-default-rtdb.asia-southeast1.firebasedatabase.app/";
@@ -119,7 +122,7 @@ const HomePage = () => {
         messages: [
           {
             role: "user",
-            content: `Pretend that you are a friend experienced in the field of mental health.\nOne of your friends wrote the following journal entry:\n
+            content: `Pretend that you are ${"Joshua's"} friend who is experienced in the field of mental health.\nOne of your friends wrote the following journal entry:\n
             ${newEntry}\n
             Please give him some advice and avenues where he can seek help. Write it in the form of a monologue from you to him, as if you were speaking to him face to face. Try to be as nuturing as possible, gently guiding him to seeking help.\n
             At the end, please suggest some activities he can take part in to alleviate his troubles.`,
@@ -142,10 +145,12 @@ const HomePage = () => {
             role: "user",
             content: `Based on this journal entry:\n
             ${newEntry}\n
-            From the following emotions: Happy, Loved, Confident, Playful, Embarrassed, Angry, Scared and Sad, choose one that best depicts the writer's emotions.\nReply with the one word answer.`,
+            Choose an emotion from the following that best depicats the writer's state of mind:
+            Happy, Loved, Confident, Playful, Embarrassed, Angry, Scared and Sad.\n
+            Reply in one word.`,
           },
         ],
-        temperature: 0.3,
+        temperature: 0.1,
         max_tokens: 1000,
         top_p: 1,
         frequency_penalty: 0,
@@ -216,7 +221,8 @@ const HomePage = () => {
                 <Textarea
                   value={newEntry}
                   onChange={(e) => {
-                    setNewEntry(e.value);
+                    console.log(newEntry);
+                    setNewEntry(e.target.value);
                   }}
                 />
               </CardBody>
