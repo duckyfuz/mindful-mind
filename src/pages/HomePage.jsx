@@ -87,9 +87,12 @@ const HomePage = () => {
                 <Text>Based on your most recent entries...</Text>
                 <Text>You are feeling:</Text>
                 <Text fontSize={"2xl"} align={"center"}>
-                  HAPPY
+                  DOWN
                 </Text>
               </CardHeader>
+              <CardBody>
+                <Text>Here are some resources you can review:</Text>
+              </CardBody>
             </Card>
           </Box>
         )}
