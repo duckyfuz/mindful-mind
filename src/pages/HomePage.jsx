@@ -4,6 +4,7 @@ import { Box, Grid, GridItem } from "@chakra-ui/layout";
 import { Button } from "@chakra-ui/button";
 import { Text } from "@chakra-ui/react";
 import { Card, CardBody } from "@chakra-ui/card";
+import PastEntries from "../Components/PastEntries";
 
 const HomePage = () => {
   return (
@@ -40,7 +41,7 @@ const HomePage = () => {
           <Text>Title</Text>
         </CardBody>
       </Card>
-      <Text>Past Entries</Text>
+      <PastEntries />
     </Box>
   );
 };
