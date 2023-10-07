@@ -260,7 +260,9 @@ const HomePage = () => {
                 </Text>
               </CardHeader>
               <CardBody>
-                <Text>Here are some resources you can review:</Text>
+                <Text align={"left"}>
+                  Here are some resources you can review:
+                </Text>
               </CardBody>
             </Card>
           </Box>
