@@ -58,7 +58,7 @@ const HomePage = () => {
   }, [file]);
 
   return (
-    <Box h="100vh">
+    <Box>
       {true && (
         <Card h={12} textAlign="left" padding={2} variant="outline">
           <Grid templateColumns="repeat(5, 1fr)" gap={6} height="100%">
@@ -71,7 +71,7 @@ const HomePage = () => {
           </Grid>
         </Card>
       )}
-      <HStack h={"100vh"} align={"start"}>
+      <HStack align={"start"}>
         <Box p={2} flex={5}>
           <Text fontSize={"3xl"} as="b" mb={0}>
             New Entry
@@ -105,12 +105,12 @@ const HomePage = () => {
                     <Input
                       type="file"
                       id="fileInput"
-                    ref={inputRef}
+                      ref={inputRef}
                       accept=".mp3"
                       display="none" // Hide the default file input
                       onChange={() => {
-                      setFile(inputRef.current.files[0]);
-                    }}
+                        setFile(inputRef.current.files[0]);
+                      }}
                     />
                   </Flex>
                 </label>
