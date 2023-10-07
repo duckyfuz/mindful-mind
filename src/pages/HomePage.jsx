@@ -6,11 +6,11 @@ import { Card } from "@chakra-ui/card";
 
 const HomePage = () => {
   return (
-    <Box>
+    <Box h="100vh">
       <Card
         bg="tomato"
         w="90vw"
-        h={10}
+        h={12}
         textAlign="left"
         padding={2}
         paddingLeft={5}
@@ -25,7 +25,7 @@ const HomePage = () => {
             <h2>A Note From Us!</h2>
           </GridItem>
           <GridItem colStart={7}>
-            <Button>Test!</Button>
+            <Button h={8}>Test!</Button>
           </GridItem>
         </Grid>
       </Card>
