@@ -45,7 +45,9 @@ const PastEntries = () => {
 
   return (
     <Stack>
-      <Text fontSize={"3xl"}>Past Entries</Text>
+      <Text fontSize={"3xl"} as="b">
+        Past Entries
+      </Text>
 
       <Center gap={6} alignItems={"start"}>
         {[0, 1, 2].map((stack) => (
