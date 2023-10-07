@@ -73,7 +73,7 @@ const HomePage = () => {
           `${firebaseDatabaseUrl}${endpointPath}.json`
         );
 
-        setMsg(response.data.target);
+        setMsg(response.data);
       } catch (error) {
         console.error("Error adding entry:", error);
       }
@@ -133,9 +133,27 @@ const HomePage = () => {
       console.log(result);
       // setResponse(result);
 
+      const emo = await openai.chat.completions.create({
+        model: "gpt-3.5-turbo",
+        messages: [
+          {
+            role: "user",
+            content: `Based on this journal entry:\n
+            ${newEntry}\n
+            From the following emotions: Happy, Loved, Confident, Playful, Embarrassed, Angry, Scared and Sad, choose one that best depicts the writer's emotions.\nReply with the one word answer.`,
+          },
+        ],
+        temperature: 0.3,
+        max_tokens: 1000,
+        top_p: 1,
+        frequency_penalty: 0,
+        presence_penalty: 0,
+      });
+      const emoRes = emo.choices[0].message.content;
+
       await axios.put(
         `https://feedback-psa-default-rtdb.asia-southeast1.firebasedatabase.app/v2target.json`,
-        { target: result }
+        { target: result, emo: emoRes }
       );
 
       setLoadingGPT(false);
@@ -144,7 +162,7 @@ const HomePage = () => {
 
   return (
     <Box>
-      {msg.length !== 0 && (
+      {msg && msg.target.length !== 0 && (
         <Card h={12} textAlign="left" padding={2} variant="outline">
           <Grid templateColumns="repeat(5, 1fr)" gap={6} height="100%">
             <GridItem colSpan={2}>
@@ -154,7 +172,7 @@ const HomePage = () => {
               <Button
                 h={8}
                 onClick={() => {
-                  const text = msg;
+                  const text = msg.target;
 
                   // Create a new SpeechSynthesisUtterance object
                   let utterance = new SpeechSynthesisUtterance();
@@ -180,7 +198,7 @@ const HomePage = () => {
           </Grid>
         </Card>
       )}
-      <HStack align={"start"}>
+      <HStack align={"start"} gap={6}>
         <Box p={2} flex={5}>
           <Text fontSize={"3xl"} as="b" mb={0}>
             New Entry
@@ -231,14 +249,14 @@ const HomePage = () => {
           </Flex>
           <PastEntries />
         </Box>
-        {true && (
+        {msg && msg.emo.length !== 0 && (
           <Box flex={2} h={"100vh"} mt={4}>
             <Card h={"80%"}>
               <CardHeader align="left">
                 <Text>Based on your most recent entries...</Text>
                 <Text>You are feeling:</Text>
                 <Text fontSize={"2xl"} align={"center"}>
-                  DOWN
+                  {msg.emo}
                 </Text>
               </CardHeader>
               <CardBody>
