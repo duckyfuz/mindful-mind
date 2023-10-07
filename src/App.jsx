@@ -6,7 +6,11 @@ import { Card, CardHeader, CardBody, CardFooter } from "@chakra-ui/react";
 
 import { entries } from "./tmp/example";
 
+//navigation
+import { useNavigate } from "react-router-dom";
+
 function App() {
+  const navigate = useNavigate();
   return (
     <ChakraProvider>
       <Stack>
@@ -17,7 +21,11 @@ function App() {
             </CardBody>
           </Card>
         ))}
-        <Button colorScheme="teal" size="lg">
+        <Button
+          colorScheme="teal"
+          size="lg"
+          onClick={() => navigate("/record")}
+        >
           Button
         </Button>
       </Stack>

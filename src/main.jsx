@@ -6,7 +6,7 @@ import "./index.css";
 
 //components
 import Home from "./App.jsx";
-import chatGPT from "./chatGPT/chatGPT.jsx";
+import ChatGPT from "./chat/ChatGPT.jsx";
 
 const router = createBrowserRouter([
   {
@@ -19,7 +19,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/chatgpt",
-    element: <chatGPT />,
+    element: <ChatGPT />,
   },
 ]);
 
