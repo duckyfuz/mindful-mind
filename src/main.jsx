@@ -5,8 +5,9 @@ import "./index.css";
 
 //components
 import App from "./App.jsx";
-import ChatGPT from "./chat/ChatGPT.jsx";
+import Entry from "./chat/Entry.jsx";
 import Record from "./pages/Record.jsx";
+import { ChakraProvider } from "@chakra-ui/react";
 
 const router = createBrowserRouter([
   {
@@ -18,13 +19,15 @@ const router = createBrowserRouter([
     element: <Record />,
   },
   {
-    path: "/chatgpt",
-    element: <ChatGPT />,
+    path: "/entry",
+    element: <Entry />,
   },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <ChakraProvider>
+      <RouterProvider router={router} />
+    </ChakraProvider>
   </React.StrictMode>
 );
