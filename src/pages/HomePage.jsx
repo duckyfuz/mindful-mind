@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
+import axios from "axios";
+
 //import components
 import {
   Box,
@@ -16,9 +18,44 @@ import PastEntries from "../Components/PastEntries";
 import { Input } from "@chakra-ui/input";
 import { Textarea } from "@chakra-ui/react";
 
+//whisper parameters
+const apiKey = import.meta.env.VITE_OPENAI_KEY;
+const model = "whisper-1";
+const language = "en";
+
 const HomePage = () => {
   const [newEntry, setNewEntry] = useState("");
   const [file, setFile] = useState();
+  const inputRef = useRef();
+
+  useEffect(() => {
+    const fetchAudioFile = async () => {
+      if (!file) {
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("model", model);
+      formData.append("file", file);
+      formData.append("language", language);
+
+      axios
+        .post("https://api.openai.com/v1/audio/transcriptions", formData, {
+          headers: {
+            "Content-Type": "multi-part/form-data",
+            Authorization: `Bearer ${apiKey}`,
+          },
+        })
+        .then((res) => {
+          console.log(res.data["text"]);
+          setNewEntry(res.data["text"]);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+    fetchAudioFile();
+  }, [file]);
 
   return (
     <Box h="100vh">
@@ -64,13 +101,16 @@ const HomePage = () => {
                     p={2} // Add padding to the container
                     cursor="pointer" // Change cursor on hover
                   >
-                    <span>Choose File:</span>
+                    <span>Choose File: {file && file.name}</span>
                     <Input
                       type="file"
                       id="fileInput"
+                    ref={inputRef}
                       accept=".mp3"
                       display="none" // Hide the default file input
-                      onChange={(e) => handleFileUpload(e)}
+                      onChange={() => {
+                      setFile(inputRef.current.files[0]);
+                    }}
                     />
                   </Flex>
                 </label>
