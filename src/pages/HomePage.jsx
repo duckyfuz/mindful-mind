@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
 
+import OpenAI from "openai";
+
 //import components
 import {
   Box,
@@ -27,6 +29,8 @@ const HomePage = () => {
   const [newEntry, setNewEntry] = useState("");
   const [file, setFile] = useState();
   const inputRef = useRef();
+
+  const [loadingGPT, setLoadingGPT] = useState(false);
 
   useEffect(() => {
     const fetchAudioFile = async () => {
@@ -56,6 +60,68 @@ const HomePage = () => {
     };
     fetchAudioFile();
   }, [file]);
+
+  const addEntryHandler = () => {
+    (async () => {
+      setLoadingGPT(true);
+
+      try {
+        const firebaseDatabaseUrl =
+          "https://feedback-psa-default-rtdb.asia-southeast1.firebasedatabase.app/";
+        const endpointPath = `v2`;
+
+        const response = await axios.get(
+          `${firebaseDatabaseUrl}${endpointPath}.json`
+        );
+
+        let updatedRows = response.data;
+        updatedRows[new Date()] = newEntry;
+
+        console.log(updatedRows);
+
+        await axios.put(
+          `${firebaseDatabaseUrl}${endpointPath}.json`,
+          updatedRows
+        );
+      } catch (error) {
+        console.error("Error adding entry:", error);
+        alert("Please try again later.");
+      }
+
+      const openai = new OpenAI({
+        apiKey: import.meta.env.VITE_OPENAI_KEY,
+        dangerouslyAllowBrowser: true,
+      });
+
+      const response = await openai.chat.completions.create({
+        model: "gpt-3.5-turbo",
+        messages: [
+          {
+            role: "user",
+            content: `Pretend that you are a friend experienced in the field of mental health.\nOne of your friends wrote the following journal entry:\n
+            ${newEntry}\n
+            Please give him some advice and avenues where he can seek help. Write it in the form of a monologue from you to him, as if you were speaking to him face to face. Try to be as nuturing as possible, gently guiding him to seeking help.\n
+            At the end, please suggest some activities he can take part in to alleviate his troubles.`,
+          },
+        ],
+        temperature: 0.3,
+        max_tokens: 1000,
+        top_p: 1,
+        frequency_penalty: 0,
+        presence_penalty: 0,
+      });
+      const result = response.choices[0].message.content;
+      console.log(result);
+      // setResponse(result);
+
+      await axios.put(
+        `https://feedback-psa-default-rtdb.asia-southeast1.firebasedatabase.app/v2target.json`,
+        { target: result }
+      );
+
+      setLoadingGPT(false);
+    })();
+  };
 
   return (
     <Box>
@@ -116,7 +182,9 @@ const HomePage = () => {
                 </label>
               </Stack>
             </Card>
-            <Button>Add</Button>
+            <Button isLoading={loadingGPT} onClick={addEntryHandler}>
+              Add
+            </Button>
           </Flex>
           <PastEntries />
         </Box>
