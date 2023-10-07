@@ -29,6 +29,7 @@ const HomePage = () => {
   const [newEntry, setNewEntry] = useState("");
   const [file, setFile] = useState();
   const inputRef = useRef();
+  const [msg, setMsg] = useState("");
 
   const [loadingGPT, setLoadingGPT] = useState(false);
 
@@ -60,6 +61,24 @@ const HomePage = () => {
     };
     fetchAudioFile();
   }, [file]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const firebaseDatabaseUrl =
+          "https://feedback-psa-default-rtdb.asia-southeast1.firebasedatabase.app/";
+        const endpointPath = `v2target`;
+
+        const response = await axios.get(
+          `${firebaseDatabaseUrl}${endpointPath}.json`
+        );
+
+        setMsg(response.data.target);
+      } catch (error) {
+        console.error("Error adding entry:", error);
+      }
+    })();
+  });
 
   const addEntryHandler = () => {
     (async () => {
@@ -125,14 +144,38 @@ const HomePage = () => {
 
   return (
     <Box>
-      {true && (
+      {msg.length !== 0 && (
         <Card h={12} textAlign="left" padding={2} variant="outline">
           <Grid templateColumns="repeat(5, 1fr)" gap={6} height="100%">
             <GridItem colSpan={2}>
               <h2>A Note From Us!</h2>
             </GridItem>
             <GridItem colStart={7}>
-              <Button h={8}>Play!</Button>
+              <Button
+                h={8}
+                onClick={() => {
+                  const text = msg;
+
+                  // Create a new SpeechSynthesisUtterance object
+                  let utterance = new SpeechSynthesisUtterance();
+
+                  // Set the text and voice of the utterance
+                  utterance.text = text;
+                  utterance.voice = window.speechSynthesis.getVoices()[10];
+                  console.log(window.speechSynthesis.getVoices());
+
+                  // Configure voice properties for a soothing and slower voice
+                  utterance.rate = 0.8; // Adjust the rate (speech speed), 0.5 is slower, 1.0 is normal speed
+                  utterance.pitch = 1; // Adjust the pitch, 0.0 is lower pitch, 2.0 is higher pitch
+
+                  // Speak the utterance
+
+                  // Speak the utterance
+                  window.speechSynthesis.speak(utterance);
+                }}
+              >
+                Play!
+              </Button>
             </GridItem>
           </Grid>
         </Card>
