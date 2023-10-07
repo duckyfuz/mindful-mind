@@ -13,7 +13,6 @@ const Record = () => {
   const onChangeFile = () => {
     setFile(inputRef.current.files[0]);
   };
-
   useEffect(() => {
     const fetchAudioFile = async () => {
       if (!file) {

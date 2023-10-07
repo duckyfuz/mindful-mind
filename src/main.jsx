@@ -8,6 +8,7 @@ import App from "./App.jsx";
 import Entry from "./chat/Entry.jsx";
 import Record from "./pages/Record.jsx";
 import { ChakraProvider } from "@chakra-ui/react";
+import HomePage from "./pages/HomePage";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
   {
     path: "/entry",
     element: <Entry />,
+  },
+  {
+    path: "/HomePage",
+    element: <HomePage />,
   },
 ]);
 
