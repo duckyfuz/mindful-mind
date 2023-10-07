@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import "./App.css";
 import {
-  ChakraProvider,
+  Center,
   Stack,
   Tab,
   TabList,
@@ -13,7 +13,7 @@ import {
 } from "@chakra-ui/react";
 
 import { Button } from "@chakra-ui/react";
-import { Card, CardHeader, CardBody, CardFooter } from "@chakra-ui/react";
+import { Card, CardHeader, CardBody } from "@chakra-ui/react";
 
 import axios from "axios";
 
@@ -55,39 +55,47 @@ function App() {
   });
 
   return (
-    <Tabs>
-      <TabList>
-        <Tab>Journal Entries</Tab>
-        <Tab>Two</Tab>
-      </TabList>
-
-      <TabPanels>
-        <TabPanel>
-          <Stack>
-            {Object.keys(entries).map((entryKey, index) => (
-              <Card key={index}>
-                <CardHeader>
-                  <Text>{formatDateToString(new Date(entryKey))}</Text>
-                </CardHeader>
-                <CardBody>
-                  <Text>{entries[entryKey]}</Text>
-                </CardBody>
-              </Card>
-            ))}
+    <Center>
+      <Tabs>
+        <TabList>
+          <Tab>Journal Entries</Tab>
+          <Tab>Feedbacks</Tab>
+        </TabList>
+        <TabPanels>
+          <TabPanel>
+            <Stack>
+              {Object.keys(entries).map((entryKey, index) => (
+                <Card key={index} w={60} gap={0}>
+                  <CardHeader
+                    p={0}
+                    alignContent={"start"}
+                    justifyContent={"start"}
+                  >
+                    <Text fontSize="xs">
+                      {formatDateToString(new Date(entryKey))}
+                    </Text>
+                  </CardHeader>
+                  <CardBody p={0}>
+                    <Text noOfLines={3}>{entries[entryKey]}</Text>
+                  </CardBody>
+                </Card>
+              ))}
+            </Stack>
             <Button
+              marginTop={2}
               colorScheme="teal"
               size="lg"
               onClick={() => navigate("/record")}
             >
               Button
             </Button>
-          </Stack>{" "}
-        </TabPanel>
-        <TabPanel>
-          <p>two!</p>
-        </TabPanel>
-      </TabPanels>
-    </Tabs>
+          </TabPanel>
+          <TabPanel>
+            <p>two!</p>
+          </TabPanel>
+        </TabPanels>
+      </Tabs>
+    </Center>
   );
 }
 

@@ -11,7 +11,9 @@ import {
   Stack,
 } from "@chakra-ui/layout";
 import { Button } from "@chakra-ui/button";
-import { Card, CardHeader } from "@chakra-ui/card";
+import { Text } from "@chakra-ui/react";
+import { Card, CardBody, CardHeader } from "@chakra-ui/card";
+import PastEntries from "../Components/PastEntries";
 import { Input } from "@chakra-ui/input";
 
 const HomePage = () => {

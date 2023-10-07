@@ -38,6 +38,7 @@ const ChatGPT = () => {
         presence_penalty: 0,
       });
       const result = response.choices[0].message.content;
+      console.log(result);
       setResponse(result);
       setLoadingGPT(false);
     })();
@@ -48,7 +49,7 @@ const ChatGPT = () => {
     if (response.length !== 0) {
       text = response;
     } else {
-      text = "Nothing here.";
+      text = "How does this sound";
     }
 
     // Create a new SpeechSynthesisUtterance object
@@ -56,7 +57,14 @@ const ChatGPT = () => {
 
     // Set the text and voice of the utterance
     utterance.text = text;
-    utterance.voice = window.speechSynthesis.getVoices()[0];
+    utterance.voice = window.speechSynthesis.getVoices()[10];
+    console.log(window.speechSynthesis.getVoices());
+
+    // Configure voice properties for a soothing and slower voice
+    utterance.rate = 0.8; // Adjust the rate (speech speed), 0.5 is slower, 1.0 is normal speed
+    utterance.pitch = 1; // Adjust the pitch, 0.0 is lower pitch, 2.0 is higher pitch
+
+    // Speak the utterance
 
     // Speak the utterance
     window.speechSynthesis.speak(utterance);
