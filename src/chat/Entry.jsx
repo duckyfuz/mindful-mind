@@ -38,6 +38,7 @@ const ChatGPT = () => {
         presence_penalty: 0,
       });
       const result = response.choices[0].message.content;
+      console.log(result);
       setResponse(result);
       setLoadingGPT(false);
     })();

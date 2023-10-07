@@ -2,12 +2,22 @@ import React from "react";
 //import components
 import { Box, Grid, GridItem } from "@chakra-ui/layout";
 import { Button } from "@chakra-ui/button";
-import { Card } from "@chakra-ui/card";
+import { Text } from "@chakra-ui/react";
+import { Card, CardBody } from "@chakra-ui/card";
 
 const HomePage = () => {
+  
   return (
-    <Box>
-      <Card
+    <Box h={"100vh"}>
+      {true && <Text>A note from us</Text>}
+      <Card>
+        <CardBody>
+          <Text>Title</Text>
+        </CardBody>
+      </Card>
+      <Text>Past Entries</Text>
+
+      {/* <Card
         bg="tomato"
         w="90vw"
         h={10}
@@ -28,7 +38,7 @@ const HomePage = () => {
             <Button>Test!</Button>
           </GridItem>
         </Grid>
-      </Card>
+      </Card> */}
     </Box>
   );
 };
