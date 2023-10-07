@@ -13,7 +13,7 @@ import HomePage from "./pages/HomePage";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <HomePage />,
   },
   {
     path: "/record",
@@ -22,10 +22,6 @@ const router = createBrowserRouter([
   {
     path: "/entry",
     element: <Entry />,
-  },
-  {
-    path: "/HomePage",
-    element: <HomePage />,
   },
 ]);
 

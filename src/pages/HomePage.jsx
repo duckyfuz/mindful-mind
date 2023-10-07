@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import axios from "axios";
 
 import OpenAI from "openai";
@@ -18,7 +18,9 @@ import { Button } from "@chakra-ui/button";
 import { Card, CardHeader, CardBody } from "@chakra-ui/card";
 import PastEntries from "../Components/PastEntries";
 import { Input } from "@chakra-ui/input";
-import { Textarea } from "@chakra-ui/react";
+import { Textarea, ListItem, OrderedList, Link } from "@chakra-ui/react";
+
+import resources from "../Components/resources";
 
 //whisper parameters
 const apiKey = import.meta.env.VITE_OPENAI_KEY;
@@ -72,13 +74,13 @@ const HomePage = () => {
         const response = await axios.get(
           `${firebaseDatabaseUrl}${endpointPath}.json`
         );
-
+        console.log(response.data);
         setMsg(response.data);
       } catch (error) {
         console.error("Error adding entry:", error);
       }
     })();
-  });
+  }, []);
 
   const addEntryHandler = () => {
     (async () => {
@@ -254,15 +256,53 @@ const HomePage = () => {
             <Card h={"80%"}>
               <CardHeader align="left">
                 <Text>Based on your most recent entries...</Text>
-                <Text>You are feeling:</Text>
+                <Text>You seem to be feeling:</Text>
                 <Text fontSize={"2xl"} align={"center"}>
                   {msg.emo}
                 </Text>
               </CardHeader>
               <CardBody>
-                <Text align={"left"}>
+                <Text align={"left"} mb={2}>
                   Here are some resources you can review:
                 </Text>
+                <OrderedList align="left" ml={5}>
+                  <ListItem>
+                    <Link
+                      href="https://chakra-ui.com"
+                      isExternal
+                      color={"blue"}
+                    >
+                      Art therapy
+                    </Link>
+                  </ListItem>
+                  <ListItem>
+                    <Link
+                      href="https://chakra-ui.com"
+                      isExternal
+                      color={"blue"}
+                    >
+                      Meditation
+                    </Link>
+                  </ListItem>
+                  <ListItem>
+                    <Link
+                      href="https://chakra-ui.com"
+                      isExternal
+                      color={"blue"}
+                    >
+                      Music therapy
+                    </Link>
+                  </ListItem>
+                  <ListItem>
+                    <Link
+                      href="https://chakra-ui.com"
+                      isExternal
+                      color={"blue"}
+                    >
+                      Get active!
+                    </Link>
+                  </ListItem>
+                </OrderedList>
               </CardBody>
             </Card>
           </Box>
