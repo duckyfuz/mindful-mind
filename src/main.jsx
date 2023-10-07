@@ -7,6 +7,7 @@ import "./index.css";
 //components
 import Home from "./App.jsx";
 import ChatGPT from "./chat/ChatGPT.jsx";
+import Record from "./pages/Record.jsx";
 
 const router = createBrowserRouter([
   {
@@ -15,7 +16,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/record",
-    element: <div>Change the component here! </div>,
+    element: <Record />,
   },
   {
     path: "/chatgpt",
