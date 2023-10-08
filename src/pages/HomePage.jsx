@@ -36,6 +36,7 @@ const HomePage = () => {
   const [msg, setMsg] = useState("");
 
   const [loadingGPT, setLoadingGPT] = useState(false);
+  const [toggle, setToggle] = useState(false);
 
   useEffect(() => {
     const fetchAudioFile = async () => {
@@ -82,7 +83,7 @@ const HomePage = () => {
         console.error("Error adding entry:", error);
       }
     })();
-  }, []);
+  }, [toggle]);
 
   const addEntryHandler = () => {
     (async () => {
@@ -166,6 +167,7 @@ const HomePage = () => {
       );
 
       setLoadingGPT(false);
+      setToggle(!toggle);
     })();
   };
 
