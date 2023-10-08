@@ -256,7 +256,7 @@ const HomePage = () => {
                     p={2} // Add padding to the container
                     cursor="pointer" // Change cursor on hover
                   >
-                    <span>Choose File: {file && file.name}</span>
+                    <span>Choose File (mp3): {file && file.name}</span>
                     <Input
                       type="file"
                       id="fileInput"
