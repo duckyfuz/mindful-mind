@@ -266,6 +266,9 @@ const HomePage = () => {
                 <Text fontSize={"2xl"} align={"center"}>
                   {msg.emo}
                 </Text>
+                <Text fontSize={"7xl"} align={"center"}>
+                  &#128546;
+                </Text>
               </CardHeader>
               <CardBody>
                 <Text align={"left"} mb={2}>
