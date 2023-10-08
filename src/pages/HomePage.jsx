@@ -18,7 +18,9 @@ import { Button } from "@chakra-ui/button";
 import { Card, CardHeader, CardBody } from "@chakra-ui/card";
 import PastEntries from "../Components/PastEntries";
 import { Input } from "@chakra-ui/input";
-import { Textarea, ListItem, OrderedList, Link } from "@chakra-ui/react";
+import { Textarea, ListItem, OrderedList, Link, Image } from "@chakra-ui/react";
+
+import SailboatIcon from "../../SailboatIcon.png";
 
 import resources from "../Components/resources";
 
@@ -169,6 +171,24 @@ const HomePage = () => {
 
   return (
     <Box>
+      <Box w="100%" p={0}>
+        <HStack align="center" spacing="15px">
+          <Image
+            boxSize="60px"
+            objectFit="cover"
+            src={SailboatIcon}
+            alt="Dan Abramov"
+          />
+          <Text fontSize="3xl" as="b">
+            Sailboat
+          </Text>
+          <Text fontSize="sm" as="i" mt={2}>
+            Navigate your thoughts with Sailboat: Your Personal Journaling
+            Journey
+          </Text>
+        </HStack>
+      </Box>
+
       {msg && msg.target.length !== 0 && (
         <Card h={12} textAlign="left" padding={2} variant="outline">
           <Grid templateColumns="repeat(5, 1fr)" gap={6} height="100%">
