@@ -3,7 +3,7 @@
 In Singapore and Asia, there is still a stigma against mental health therapy and treatment. How do we break this stigma and create a safe environment for people to talk about mental health problems?
 
 - 47.8% Individuals who are willing to seek help from professionals when they are unable to cope.
-- > 75% Individuals with a mental health disorder in their lifetime who did not seek professional help.
+- more than 75% Individuals with a mental health disorder in their lifetime who did not seek professional help.
 
 ## About Sailboat
 
